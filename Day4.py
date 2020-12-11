@@ -4,7 +4,7 @@
 f = open("Day4.txt", "r")
 lst = list()
 for x in f.readlines():
-        lst.append(x[:-1])
+    lst.append(x[:-1])
 f.close()
 
 def main1():
