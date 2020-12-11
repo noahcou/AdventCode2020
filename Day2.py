@@ -3,6 +3,7 @@
 
 f = open("Day2.txt", "r")
 lst = f.readlines()
+f.close()
 
 def main1():
     ans = 0

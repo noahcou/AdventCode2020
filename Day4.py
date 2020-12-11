@@ -5,6 +5,7 @@ f = open("Day4.txt", "r")
 lst = list()
 for x in f.readlines():
         lst.append(x[:-1])
+f.close()
 
 def main1():
     ans = 0
@@ -27,7 +28,6 @@ def main1():
 
 def main2():
     ans = 0
-
     tmp = list()
     
     for x in range(0, len(lst)):
@@ -56,63 +56,95 @@ def eval(pp):
         "ecl" : False,
         "pid" : False,
     }
+
     for x in pp:
         for y in x.split(" "):
             yl = y.split(":")
             for z in range(0, len(yl)):
                 if yl[z] in dicty:
                     dicty[yl[z]] = yl[z+1]
+
     for x in dicty:
         if x == "byr":
-            try:
+            try: 
                 if 1920 <= int(dicty[x]) <= 2002:
                     dicty[x] = True
-            except: 
-                dicty[x] = False
+                else:
+                    dicty[x] = False
+            except:
+                print(f"byr except: {dicty[x]}")
+
         if x == "iyr":
             try:
                 if 2010 <= int(dicty[x]) <= 2020:
                     dicty[x] = True
+                else:
+                    dicty[x] = False
             except: 
-                dicty[x] = False
+                print(f"iyr except: {dicty[x]}")
+
         if x == "eyr":
             try:
                 if 2020 <= int(dicty[x]) <= 2030:
                     dicty[x] = True
+                else:
+                    dicty[x] = False
             except: 
-                dicty[x] = False
+                print(f"eyr except: {dicty[x]}")
+
         if x == "hgt":
             try:
-                if (dicty[x][:-2] == "in" and 59 <= int(dicty[x][:2]) <= 76) or (dicty[x][:-2] == "cm" and 150 <= int(dicty[x][:3]) <= 193):
-                    dicty[x] = True
-            except:
-                dicty[x] = False
-        if x == "hcl":
-            for z in dicty[x]:
-                if not(ord("0") <= ord(z) <= ord("9") or ord("a") <= ord(z) <= ord("f") or z == "#"):
+                if str(dicty[x]).strip().endswith("cm"):
+                    if 150 <= int(dicty[x][:3]) <= 193:
+                        dicty[x] = True
+                elif str(dicty[x]).strip().endswith("in"):
+                    if 59 <= int(dicty[x][:2]) <= 76:
+                        dicty[x] = True
+                else:
                     dicty[x] = False
-            if dicty[x] is not bool and len(dicty[x]) == 7:
-                dicty[x] == True
+            except: 
+                print(f"hgt except: {dicty[x]}")
+
+        if x == "hcl":
+            try:
+                if dicty[x][0] == "#":
+                    for y in dicty[x][1:]:
+                        if not (ord('0') <= ord(y) <= ord('9') or ord('a') <= ord(y) <= ord('f')):
+                            dicty[x] = False
+                    if dicty[x] != False:
+                        dicty[x] = True
+                else:
+                    dicty[x] = False
+            except:
+                print(f"hcl except: {dicty[x]}")
+
         if x == "ecl":
             ecll = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
             try:
                 if dicty[x] in ecll:
                     dicty[x] = True
+                else:
+                    dicty[x] = False
             except:
-                dicty[x] = False
+                print(f"ecl except: {dicty[x]}")
+
         if x == "pid":
-            try:
-                for z in dicty[x]:
-                    if not(0 <= z <= 9):
-                        dicty[x] = False
-                if dicty[x] is not bool and len(dicty[x]) == 9:
-                    dicty[x] = True
+            try: 
+                if len(dicty[x]) == 9:
+                    for y in dicty[x]:
+                        if not (ord('0') <= ord(y) <= ord('9')):
+                            dicty[x] = False
+                    if dicty[x] != False:
+                        dicty[x] = True
+                else:
+                    dicty[x] = False
             except:
-                dicty[x] = False
+                print(f"pid except: {dicty[x]}")
 
     for x in dicty:
         if dicty[x] == True:
             val += 1
+
     if val == 7:
         return True
                     

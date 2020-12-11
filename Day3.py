@@ -5,6 +5,7 @@ f = open("Day3.txt", "r")
 lst = list()
 for x in f.readlines():
     lst.append(x[:-1])
+f.close()
 
 def main1():
     ans = 0
@@ -26,7 +27,6 @@ def tree(right, step = 1):
     ans = 0
     x = right
     for y in range(step, len(lst), step):
-        print(right, x, y, len(lst[y]), ans)
         if lst[y][x] == "#":
             ans += 1
         x += right

@@ -3,6 +3,7 @@
 
 f = open("Day1.txt", "r")
 lst = f.readlines()
+f.close()
 
 def main1():
     for x in range(0, len(lst)):
