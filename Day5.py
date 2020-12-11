@@ -34,6 +34,6 @@ def main():
             ans2 = tmp[x] + 1
     
     ans = tmp[-1]
-    return f"{ans} and {ans2}"
+    return f"{ans} {ans2}"
 
 print(main())
